@@ -18,9 +18,6 @@ public class Car : MonoBehaviour
     private string make;
     private int maxSpeed = 100;
     private int currentSpeed = 0;
-    [SerializeField] private TMP_Text yearText;
-    [SerializeField] private TMP_Text makeText;
-    [SerializeField] private TMP_Text speedText;
 
     void Start()
     {
@@ -57,24 +54,23 @@ public class Car : MonoBehaviour
         return make;
     }
 
-    public void Accelerate()
+    public void Accelerate(int playerSpeed)
     {
-        if (currentSpeed < maxSpeed)
+        if (playerSpeed < maxSpeed)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                currentSpeed++;
-            }
+            currentSpeed++;
         }
     }
-    public void Decelerate()
+    public void Decelerate(int playerSpeed)
     {
-        if (currentSpeed >= 0 && currentSpeed <= maxSpeed)
+        if (playerSpeed >= 0 && playerSpeed <= maxSpeed)
         {
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                currentSpeed--;
-            }
+           currentSpeed--;
         }
+    }
+
+    public int GetSpeed()
+    {
+        return currentSpeed;
     }
 }

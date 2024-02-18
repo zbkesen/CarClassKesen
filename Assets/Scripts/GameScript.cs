@@ -16,9 +16,11 @@ using UnityEngine.UI;
 public class GameScript : MonoBehaviour
 {
     private Car playerCar = new Car();
-    [SerializeField] private GameObject emptyCar;
     [SerializeField] private TMP_InputField playerYearInput;
     [SerializeField] private TMP_InputField playerMakeInput;
+    [SerializeField] private TMP_Text yearText;
+    [SerializeField] private TMP_Text makeText;
+    [SerializeField] private TMP_Text speedText;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +31,7 @@ public class GameScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
+        SpeedControl();
     }
 
     void PlayerInputYear()
@@ -49,21 +51,42 @@ public class GameScript : MonoBehaviour
     public void OnClickYearButton()
     {
         PlayerInputYear();
-        InstantiateCar();
+        //yearText.text = playerCar.GetYear().ToString();
+        //InstantiateCar();
     }
 
     public void OnClickMakeButton()
     {
         PlayerInputMake();
-        InstantiateCar();
+        //makeText.text = playerCar.GetMake();
+        //InstantiateCar();
     }
 
-    void InstantiateCar()
+    void SpeedControl()
+    {
+        int playerSpeed = 0;
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            playerCar.Accelerate(playerSpeed);
+            speedText.text = playerCar.GetSpeed().ToString();
+            Debug.Log(playerSpeed);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            playerCar.Decelerate(playerSpeed);
+            speedText.text = playerCar.GetSpeed().ToString();
+            Debug.Log(playerSpeed);
+        }
+    }
+
+    /*void InstantiateCar()
     {
         if (playerCar.GetYear() != null &&  playerCar.GetMake() != null)
         {
             Vector3 pos = new Vector3(0, 0, 0);
-            GameObject carClone = Instantiate(emptyCar, pos, Quaternion.identity);
+            GameObject carClone = Instantiate(playerCar, pos, Quaternion.identity);
         }
     }
+    */
 }
