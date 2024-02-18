@@ -4,12 +4,21 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+//////////////////////////////////////////////
+//Assignment/Lab/Project: Car Class
+//Name: Zarek Kesen
+//Section: SGD.213.2172
+//Instructor: Brian Sowers
+//Date: 2/18/2024
+/////////////////////////////////////////////
+
+
 public class GameScript : MonoBehaviour
 {
-    private Car playerCar;
-    [SerializeField] private TMP_InputField playerInput;
-    [SerializeField] private TMP_Text yearText;
-    [SerializeField] private TMP_Text makeText;
+    private Car playerCar = new Car();
+    [SerializeField] private GameObject emptyCar;
+    [SerializeField] private TMP_InputField playerYearInput;
+    [SerializeField] private TMP_InputField playerMakeInput;
 
     // Start is called before the first frame update
     void Start()
@@ -20,35 +29,41 @@ public class GameScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+     
     }
 
     void PlayerInputYear()
     {
-        int yearInput = playerCar.Year;
-        string output = "";
-        yearInput = int.Parse(output);
-        OnClickSubmitButton(output);
-        yearText.text = output;
+        int playerYear = int.Parse(playerYearInput.text);
+        playerCar.ChangeYearOfCar(playerYear);
+        Debug.Log("This is the player's year: " + playerCar.GetYear());
     }
 
     void PlayerInputMake()
     {
-        string output = "";
-        if (playerInput != null)
-        {
-            output = playerInput.text;
-            makeText.text = output;
-        }
+        string playerMake = playerMakeInput.text;
+        playerCar.ChangeMakeOfCar(playerMake);
+        Debug.Log("This is the player's make: " + playerCar.GetMake());
     }
 
-    public void OnClickSubmitButton(string input)
+    public void OnClickYearButton()
     {
-        string textInput = input;
-        string output = "";
-        if (textInput != null && textInput != "")
+        PlayerInputYear();
+        InstantiateCar();
+    }
+
+    public void OnClickMakeButton()
+    {
+        PlayerInputMake();
+        InstantiateCar();
+    }
+
+    void InstantiateCar()
+    {
+        if (playerCar.GetYear() != null &&  playerCar.GetMake() != null)
         {
-            output = textInput;
+            Vector3 pos = new Vector3(0, 0, 0);
+            GameObject carClone = Instantiate(emptyCar, pos, Quaternion.identity);
         }
     }
 }
