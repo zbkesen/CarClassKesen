@@ -1,9 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-
 //////////////////////////////////////////////
 //Assignment/Lab/Project: Car Class
 //Name: Zarek Kesen
@@ -12,17 +6,12 @@ using UnityEngine.UI;
 //Date: 2/18/2024
 /////////////////////////////////////////////
 
-public class Car : MonoBehaviour
+public class Car
 {
     private int year;
     private string make;
-    private int maxSpeed = 100;
+    private int maxSpeed = 10;
     private int currentSpeed = 0;
-
-    void Start()
-    {
-
-    }
 
     public void ChangeYearOfCar(int newYear)
     {
@@ -63,7 +52,7 @@ public class Car : MonoBehaviour
     }
     public void Decelerate(int playerSpeed)
     {
-        if (playerSpeed >= 0 && playerSpeed <= maxSpeed)
+        if (playerSpeed > 0 && playerSpeed <= maxSpeed)
         {
            currentSpeed--;
         }

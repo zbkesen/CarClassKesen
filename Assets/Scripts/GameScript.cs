@@ -15,12 +15,15 @@ using UnityEngine.UI;
 
 public class GameScript : MonoBehaviour
 {
-    private Car playerCar = new Car();
     [SerializeField] private TMP_InputField playerYearInput;
     [SerializeField] private TMP_InputField playerMakeInput;
     [SerializeField] private TMP_Text yearText;
     [SerializeField] private TMP_Text makeText;
     [SerializeField] private TMP_Text speedText;
+    [SerializeField] private TMP_Text infoText;
+    private Car playerCar;
+    private int playerYear;
+    private string playerMake;
 
     // Start is called before the first frame update
     void Start()
@@ -36,36 +39,40 @@ public class GameScript : MonoBehaviour
 
     void PlayerInputYear()
     {
-        int playerYear = int.Parse(playerYearInput.text);
-        playerCar.ChangeYearOfCar(playerYear);
-        Debug.Log("This is the player's year: " + playerCar.GetYear());
+        int yearEntered = int.Parse(playerYearInput.text);
+        if (yearEntered <= 2024 && yearEntered >= 1886)
+        {
+            playerYear = yearEntered;
+            infoText.text = "";
+            Debug.Log("This is the player's year: " + playerYear);
+        }
+        else
+        {
+            infoText.text = "Year must be from 1886 to 2024.";
+        }
     }
 
     void PlayerInputMake()
     {
-        string playerMake = playerMakeInput.text;
-        playerCar.ChangeMakeOfCar(playerMake);
-        Debug.Log("This is the player's make: " + playerCar.GetMake());
+        playerMake = playerMakeInput.text;
+        Debug.Log("This is the player's make: " + playerMake);
     }
 
     public void OnClickYearButton()
     {
         PlayerInputYear();
-        //yearText.text = playerCar.GetYear().ToString();
-        //InstantiateCar();
+        InstantiateCar();
     }
 
     public void OnClickMakeButton()
     {
         PlayerInputMake();
-        //makeText.text = playerCar.GetMake();
-        //InstantiateCar();
+        InstantiateCar();
     }
 
     void SpeedControl()
     {
         int playerSpeed = 0;
-
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             playerCar.Accelerate(playerSpeed);
@@ -80,13 +87,15 @@ public class GameScript : MonoBehaviour
         }
     }
 
-    /*void InstantiateCar()
+    void InstantiateCar()
     {
-        if (playerCar.GetYear() != null &&  playerCar.GetMake() != null)
+        if (playerYear != null &&  playerMake != null)
         {
-            Vector3 pos = new Vector3(0, 0, 0);
-            GameObject carClone = Instantiate(playerCar, pos, Quaternion.identity);
+            playerCar = new Car();
+            playerCar.ChangeYearOfCar(playerYear);
+            playerCar.ChangeMakeOfCar(playerMake);
+            yearText.text = ($"Year: {playerCar.GetYear().ToString()}");
+            makeText.text = ($"Make: {playerCar.GetMake()}");
         }
     }
-    */
 }
