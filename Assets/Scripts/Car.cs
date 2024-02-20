@@ -10,7 +10,7 @@ public class Car
 {
     private int year;
     private string make;
-    private int maxSpeed = 10;
+    private int maxSpeed = 100;
     private int currentSpeed = 0;
 
     public void ChangeYearOfCar(int newYear)
@@ -45,14 +45,16 @@ public class Car
 
     public void Accelerate(int playerSpeed)
     {
-        if (playerSpeed < maxSpeed)
+        currentSpeed = playerSpeed;
+        if (currentSpeed < maxSpeed)
         {
             currentSpeed++;
         }
     }
     public void Decelerate(int playerSpeed)
     {
-        if (playerSpeed > 0 && playerSpeed <= maxSpeed)
+        currentSpeed = playerSpeed;
+        if (currentSpeed > 0 && currentSpeed <= maxSpeed)
         {
            currentSpeed--;
         }

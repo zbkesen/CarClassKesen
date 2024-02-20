@@ -76,14 +76,16 @@ public class GameScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             playerCar.Accelerate(playerSpeed);
-            speedText.text = playerCar.GetSpeed().ToString();
+            speedText.text = ($"Current Speed: {playerCar.GetSpeed().ToString()}");
             Debug.Log(playerSpeed);
+            playerSpeed = playerCar.GetSpeed();
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             playerCar.Decelerate(playerSpeed);
-            speedText.text = playerCar.GetSpeed().ToString();
+            speedText.text = ($"Current Speed: {playerCar.GetSpeed().ToString()}");
             Debug.Log(playerSpeed);
+            playerSpeed = playerCar.GetSpeed();
         }
     }
 
